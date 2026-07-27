@@ -1,0 +1,30 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public String reformatDate(String date) {
+        String[] parts = date.split(" ");
+        String dayStr = parts[0];
+        String monthStr = parts[1];
+        String yearStr = parts[2];
+        
+        // Month lookup table
+        Map<String, String> months = new HashMap<>();
+        String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for (int i = 0; i < monthNames.length; i++) {
+            months.put(monthNames[i], String.format("%02d", i + 1));
+        }
+        
+        // Extract numeric day
+        int day = 0;
+        for (char c : dayStr.toCharArray()) {
+            if (Character.isDigit(c)) {
+                day = day * 10 + (c - '0');
+            }
+        }
+        
+        // Format YYYY-MM-DD
+        return String.format("%s-%s-%02d", yearStr, months.get(monthStr), day);
+    }
+}
